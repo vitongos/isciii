@@ -22,7 +22,7 @@ SELINUXTYPE=targeted" | sudo tee /etc/selinux/config
 sudo mkdir /data/store/logs
 sudo touch /data/store/logs/mongo.log
 sudo mkdir -p /data/store/data/db
-sudo chmod 777 /data -R
+sudo chmod 666 /data -R
 sudo chown mongod:mongod /data/store -R
 echo "# mongod.conf
 
