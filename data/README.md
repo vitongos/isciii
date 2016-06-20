@@ -21,6 +21,23 @@ rm -rf samples
 Ejecutar el siguiente script:
 ```bash
 cd /home/centos/mongodb-src/data
-mongoimport --db test --collection zips --drop --file zips.json
-mongoimport --db test --collection restaurants --drop --file restaurants.json
+mongoimport --db samples --collection zips --drop --file zips.json
+mongoimport --db samples --collection restaurants --drop --file restaurants.json
 ```
+
+### Importar la colección people desde un CSV
+Ejecutar el siguiente script:
+```bash
+cd /home/centos/mongodb-src/data
+mongoimport --db samples --collection people --type csv --headerline --file people.csv
+```
+
+### Importar un XML usando una herramienta externa
+Ejecutar el siguiente script:
+```bash
+sudo yum install -y xmlstarlet
+echo "ssn;name;lastname;email;gender;company" > data/persons.csv
+xmlstarlet sel -T -t -m /persons/person -v "concat(@ssn,';',@name,';',@lastname,';',email,';',gender,';',company)" -n data/persons.xml >> data/persons.csv
+mongoimport --db samples --collection people --type csv --headerline --file persons.csv
+```
+
