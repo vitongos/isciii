@@ -5,19 +5,16 @@ import static spark.Spark.get;
 import java.io.*;
 import java.util.*;
 
-import com.mongodb.*;
-
 import freemarker.template.*;
 
 public class FreemarkerSample extends App {
 
 	public static void main(String[] args) {
 		FreemarkerSample app = new FreemarkerSample();
-		get("/mongodb/sample01", (req, res) -> { return app.getIndex(app.getDog()); });
+		get("/mongodb/sample01", (req, res) -> { return app.getIndex(app.getDogName()); });
 	}
 	
-	public String getIndex(DBObject dog)
-	{
+	public String getIndex(String dog) {
 		Configuration configuration = new Configuration();
 		configuration.setClassForTemplateLoading(FreemarkerSample.class, "/");
 		try {
@@ -29,7 +26,7 @@ public class FreemarkerSample extends App {
 			Map<String, Object> map = new HashMap<String, Object>();
 			
 			// Poblamos el Map
-			map.put("dog", dog.get("name"));
+			map.put("dog", dog);
 			
 			// Procesamos el template
 			template.process(map, stringWriter);
@@ -37,10 +34,8 @@ public class FreemarkerSample extends App {
 			return stringWriter.toString();
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (TemplateException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
