@@ -21,6 +21,14 @@ rm -rf samples
 Ejecutar el siguiente script:
 ```bash
 cd /home/centos/mongodb-src/data
-mongoimport --db test --collection zips --drop --file zips.json
-mongoimport --db test --collection restaurants --drop --file restaurants.json
+mongoimport --db samples --collection zips --drop --file zips.json
+mongoimport --db samples --collection restaurants --drop --file restaurants.json
 ```
+
+### Importar la colección people desde un CSV
+Ejecutar el siguiente script:
+```bash
+cd /home/centos/mongodb-src/data
+mongoimport --db samples --collection people --type csv --headerline --file people.csv
+```
+
