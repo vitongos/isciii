@@ -32,3 +32,12 @@ cd /home/centos/mongodb-src/data
 mongoimport --db samples --collection people --type csv --headerline --file people.csv
 ```
 
+### Importar un XML usando una herramienta externa
+Ejecutar el siguiente script:
+```bash
+sudo yum install -y xmlstarlet
+echo "ssn;name;lastname;email;gender;company" > data/persons.csv
+xmlstarlet sel -T -t -m /persons/person -v "concat(@ssn,';',@name,';',@lastname,';',email,';',gender,';',company)" -n data/persons.xml >> data/persons.csv
+mongoimport --db samples --collection people --type csv --headerline --file persons.csv
+```
+
