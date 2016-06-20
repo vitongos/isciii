@@ -13,7 +13,7 @@ public class FreemarkerSample extends App {
 
 	public static void main(String[] args) {
 		FreemarkerSample app = new FreemarkerSample();
-		get("/mongo/sample01", (req, res) -> { return app.getIndex(app.getDog()); });
+		get("/mongodb/sample01", (req, res) -> { return app.getIndex(app.getDog()); });
 	}
 	
 	public String getIndex(DBObject dog)

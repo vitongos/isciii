@@ -14,7 +14,7 @@ public class App
 {
 	public static void main(String[] args) {
 		App app = new App();
-        get("/mongo/sample01", (req, res) -> { return app.getDog().toString(); });
+        get("/mongodb/sample01", (req, res) -> { return app.getDog().toString(); });
     }
 	
 	public DBObject getDog() throws UnknownHostException
