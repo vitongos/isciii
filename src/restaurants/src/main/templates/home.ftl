@@ -14,7 +14,9 @@
 <h1>Bienvenidos a Comer bien</h1>
 
 <#list restaurants as restaurant>
-    <h2><a href="/restaurant/${restaurant["permalink"]}">${restaurant["name"]}</a></h2>
+    <h2><a href="/restaurant/${restaurant["permalink"]}">
+    ${restaurant["name"]}
+    </a></h2>
     
     Barrio: ${restaurant["borough"]}<br>
     

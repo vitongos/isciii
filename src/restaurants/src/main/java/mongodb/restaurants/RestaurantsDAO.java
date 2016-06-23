@@ -55,6 +55,12 @@ public class RestaurantsDAO {
         return this.toFieldList(iterable);
     }
     
+    public List<String> findAllCuisines() {
+    	MongoCursor<String> iterable = 
+			restaurantsCollection.distinct("cuisine", String.class).iterator();
+        return this.toFieldList(iterable);
+    }
+    
     private List<String> toFieldList(MongoCursor<String> iterable) {
     	List<String> fields = new ArrayList<String>();
     	while (iterable.hasNext()) {
@@ -66,6 +72,18 @@ public class RestaurantsDAO {
 
     public List<Document> findByLocation(String location) {
     	BsonDocument findCriteria = new BsonDocument("borough", new BsonString(location));
+        BsonDocument sortCriteria = new BsonDocument("name", new BsonInt32(1));
+        Bson projection = include("restaurant_id", "name", "borough", "cuisine", "grades");
+        MongoCursor<Document> cursor = restaurantsCollection
+    		.find(findCriteria)
+    		.projection(projection)
+    		.sort(sortCriteria)
+    		.iterator();
+        return this.toRestaurantList(cursor);
+    }
+    
+    public List<Document> findByCuisine(String cuisine) {
+    	BsonDocument findCriteria = new BsonDocument("cuisine", new BsonString(cuisine));
         BsonDocument sortCriteria = new BsonDocument("name", new BsonInt32(1));
         Bson projection = include("restaurant_id", "name", "borough", "cuisine", "grades");
         MongoCursor<Document> cursor = restaurantsCollection

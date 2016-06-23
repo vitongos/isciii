@@ -106,6 +106,16 @@ public class HomeController {
             }
         });
 
+        get("/cuisines", new FreemarkerBasedRoute("cuisines.ftl") {
+            @Override
+            protected void doHandle(Request request, Response response, Writer writer) throws IOException, TemplateException {
+                List<String> cuisines = restaurantsDAO.findAllCuisines();
+                SimpleHash root = new SimpleHash();
+                root.put("cuisines", cuisines);
+                template.process(root, writer);
+            }
+        });
+
         get("/location/:location", new FreemarkerBasedRoute("location.ftl") {
             @Override
             protected void doHandle(Request request, Response response, Writer writer) throws IOException, TemplateException {
@@ -115,6 +125,20 @@ public class HomeController {
                 List<Document> restaurants = restaurantsDAO.findByLocation(location);
                 SimpleHash root = new SimpleHash();
                 root.put("location", location);
+                root.put("restaurants", restaurants);
+                template.process(root, writer);
+            }
+        });
+
+        get("/cuisine/:cuisine", new FreemarkerBasedRoute("location.ftl") {
+            @Override
+            protected void doHandle(Request request, Response response, Writer writer) throws IOException, TemplateException {
+            	String cuisine = URLDecoder.decode(request.params(":cuisine"), "UTF-8");
+
+                System.out.println("/cuisine: get " + cuisine);
+                List<Document> restaurants = restaurantsDAO.findByCuisine(cuisine);
+                SimpleHash root = new SimpleHash();
+                root.put("location", cuisine);
                 root.put("restaurants", restaurants);
                 template.process(root, writer);
             }
