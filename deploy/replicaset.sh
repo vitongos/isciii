@@ -1,11 +1,11 @@
 #!/bin/bash
 
-mkdir -p /tmp/mongodb/member1 /tmp/mongodb/member2 /tmp/mongodb/member3
-cd /opt/mongodb
+cd /data/store
+mkdir -p member1 member2 member3
 
-bin/mongod --port 30001 --dbpath /tmp/mongodb/member1 --logpath /tmp/mongodb/member1/mongo.log --fork --replSet myReplicaSet --smallfiles --oplogSize 128
-bin/mongod --port 30002 --dbpath /tmp/mongodb/member2 --logpath /tmp/mongodb/member2/mongo.log --fork --replSet myReplicaSet --smallfiles --oplogSize 128
-bin/mongod --port 30003 --dbpath /tmp/mongodb/member3 --logpath /tmp/mongodb/member3/mongo.log --fork --replSet myReplicaSet --smallfiles --oplogSize 128
+mongod --port 30001 --dbpath /data/store/member1 --logpath /data/store/member1/mongo.log --fork --replSet myReplicaSet --smallfiles --oplogSize 128
+mongod --port 30002 --dbpath /data/store/member2 --logpath /data/store/member2/mongo.log --fork --replSet myReplicaSet --smallfiles --oplogSize 128
+mongod --port 30003 --dbpath /data/store/member3 --logpath /data/store/member3/mongo.log --fork --replSet myReplicaSet --smallfiles --oplogSize 128
 
-cd ~/mongodb-src/
-/opt/mongodb/bin/mongo --port 30001 < data/replica-set-config.js
+cd ~/mongodb-src
+mongo --port 30001 < data/replica-set-config.js
